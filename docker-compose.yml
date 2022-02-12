@@ -1,0 +1,23 @@
+version: '3.2'
+services: 
+    db:
+      image: postgres:latest
+      container_name: cyclemgr_dev_db
+      restart: always
+      environment:
+        POSTGRES_HOST_AUTH_METHOD: 'trust' 
+        POSTGRES_USER: 'dev'
+        POSTGRES_PASWORD: 'pass'
+      volumes: 
+        - ./init_db:/docker-entrypoint-initdb.d
+    java:
+      image: openjdk:11
+      container_name: cyclemgr_dev_web
+      restart: always
+      ports:
+        - 8080:8080
+      tty: true
+      depends_on:
+        - db
+volumes:  
+    init_db:
