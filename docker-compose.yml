@@ -11,6 +11,9 @@ services:
       volumes: 
         - ./init_db:/docker-entrypoint-initdb.d
     java:
+      build:
+        context: ./java
+        dockerfile: Dockerfile
       image: openjdk:11
       container_name: cyclemgr_dev_web
       restart: always
